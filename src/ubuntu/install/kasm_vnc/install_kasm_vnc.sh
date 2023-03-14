@@ -101,5 +101,5 @@ mkdir -p $KASM_VNC_PATH/www/Downloads
 chown -R 0:0 $KASM_VNC_PATH
 chmod -R og-w $KASM_VNC_PATH
 #chown -R 1000:0 $KASM_VNC_PATH/certs
-chown -R 1000:0 $KASM_VNC_PATH/www/Downloads
+chown -R 1234:0 $KASM_VNC_PATH/www/Downloads
 ln -s $KASM_VNC_PATH/www/index.html $KASM_VNC_PATH/www/vnc.html

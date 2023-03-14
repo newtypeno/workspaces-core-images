@@ -6,7 +6,10 @@ These images are based off popular linux distributions and contain the wiring ne
 While these images are primarily built to run inside the Kasm platform, they can also be executed manually.  Please note that certain functionality, such as audio, uploads, downloads, and microphone passthrough are only available within the Kasm platform.
 
 ```
-sudo docker run --rm  -it --shm-size=512m -p 6901:6901 -e VNC_PW=password --build-arg START_XFCE4=1 kasmweb/<image>:<tag>
+sudo podman build --build-arg START_XFCE4=1 -t scoredev/core-ubuntu-focal:dev -f dockerfile-kasm-core .
+sudo podman run --rm  -it --shm-size=512m -p 6901:6901 -e VNC_PW=password localhost/scoredev/core-ubuntu-focal:dev
+sudo podman run --rm  -it --shm-size=512m -p 6901:6901 -e VNC_PW=password docker.io/kasmweb/core-ubuntu-focal:1.12.0-rolling
+sudo docker run --rm  -it --shm-size=512m -p 6901:6901 -e VNC_PW=password  kasmweb/<image>:<tag>
 ```
 
 The container is now accessible via a browser : `https://<IP>:6901`

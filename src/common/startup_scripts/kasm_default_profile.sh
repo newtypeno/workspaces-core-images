@@ -6,6 +6,8 @@ PROFILE_SYNC_DIR=/kasm_profile_sync
 
 function copy_default_profile_to_home {
     echo "Copying default profile to home directory"
+    id
+    ls -la $HOME
     cp -rp $DEFAULT_PROFILE_HOME/.  $HOME/
     ls -la $HOME
 }
@@ -37,6 +39,8 @@ function verify_profile_config {
         echo "Downloads RX Symlink Exists"
     else
         echo "Creating Downloads RX Symlink"
+        ls -al $HOME/Downloads
+        ls -al $KASM_VNC_PATH/www/Downloads/
         ln -sf $HOME/Downloads $KASM_VNC_PATH/www/Downloads/Downloads
     fi
 

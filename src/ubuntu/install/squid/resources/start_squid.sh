@@ -42,7 +42,7 @@ set -ex
         certdir=$(dirname ${certDB});
         echo "Updating $certdir"
         certutil -A -n "${CERT_NAME}" -t "TCu,," -i ${CERT_FILE} -d sql:${certdir}
-        chown -R 1000:1000 ${certdir}
+        chown -R 1234:1234 ${certdir}
     done
 
     export MEMCACHE_PASSWORD="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 )"

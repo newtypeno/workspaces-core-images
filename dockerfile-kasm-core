@@ -51,6 +51,8 @@ EXPOSE $VNC_PORT \
        $AUDIO_PORT
 
 WORKDIR $HOME
+RUN id
+RUN echo "Acquire::Check-Valid-Until \"false\";\nAcquire::Check-Date \"false\";" | cat > /etc/apt/apt.conf.d/10no--check-valid-until
 RUN mkdir -p $HOME/Desktop
 
 # Support NVIDIA gpus for graphics acceleration
@@ -138,12 +140,12 @@ COPY ./src/ubuntu/install/virtualgl $INST_SCRIPTS/virtualgl/
 RUN bash $INST_SCRIPTS/virtualgl/install_virtualgl.sh && rm -rf $INST_SCRIPTS/virtualgl/
 
 ### Create user and home directory for base images that don't already define it
-RUN (groupadd -g 1000 kasm-user \
-    && useradd -M -u 1000 -g 1000 kasm-user \
+RUN (groupadd -g 1234 kasm-user \
+    && useradd -M -u 1234 -g 1234 kasm-user \
     && usermod -a -G kasm-user kasm-user) ; exit 0
 ENV HOME /home/kasm-user
 WORKDIR $HOME
-RUN mkdir -p $HOME && chown -R 1000:0 $HOME
+RUN mkdir -p $HOME && chown -R 1234:0 $HOME
 
 ### FIX PERMISSIONS ## Objective is to change the owner of non-home paths to root, remove write permissions, and set execute where required
 # these files are created on container first exec, by the default user, so we have to create them since default will not have write perm
@@ -166,12 +168,12 @@ RUN touch $STARTUPDIR/wm.log \
     && chmod +x $STARTUPDIR/jsmpeg/kasm_audio_out-linux \
     && rm -rf $STARTUPDIR/install \
     && mkdir -p $STARTUPDIR/kasmrx/Downloads \
-    && chown 1000:1000 $STARTUPDIR/kasmrx/Downloads \
+    && chown 1234:1234 $STARTUPDIR/kasmrx/Downloads \
     && chown -R root:root /usr/local/bin \
-    && chown 1000:root /var/run/pulse \
+    && chown 1234:root /var/run/pulse \
     && rm -Rf /home/kasm-default-profile/.launchpadlib
 
-USER 1000
+USER 1234
 
 ENTRYPOINT ["/dockerstartup/kasm_default_profile.sh", "/dockerstartup/vnc_startup.sh", "/dockerstartup/kasm_startup.sh"]
 CMD ["--wait"]
