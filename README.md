@@ -7,9 +7,12 @@ While these images are primarily built to run inside the Kasm platform, they can
 
 ```
 sudo podman build --build-arg START_XFCE4=1 -t scoredev/core-ubuntu-focal:dev -f dockerfile-kasm-core .
-sudo podman run --rm  -it --shm-size=512m -p 6901:6901 -e VNC_PW=password localhost/scoredev/core-ubuntu-focal:dev
+sudo podman run --rm  -it --shm-size=512m -p 6901:6901 -e VNC_PW=password scoredev/core-ubuntu-focal:dev
 sudo podman run --rm  -it --shm-size=512m -p 6901:6901 -e VNC_PW=password docker.io/kasmweb/core-ubuntu-focal:1.12.0-rolling
 sudo docker run --rm  -it --shm-size=512m -p 6901:6901 -e VNC_PW=password  kasmweb/<image>:<tag>
+
+docker build --build-arg START_XFCE4=1 -t scoredev/core-ubuntu-focal:dev -f dockerfile-kasm-core .
+docker run --rm  -it --shm-size=512m -p 6901:6901 -e VNC_PW=password scoredev/core-ubuntu-focal:dev
 ```
 
 The container is now accessible via a browser : `https://<IP>:6901`
